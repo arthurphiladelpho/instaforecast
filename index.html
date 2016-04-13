@@ -28,7 +28,7 @@
 			var LONGITUDE = "-43.1937657";
 
 			// THIS IS THE FORECAST.IO API URL
-			var weatherAPI = "https://api.forecast.io/forecast/" + APIKEY + "/" + LATITUDE + "," + LONGITUDE + "/callback=?";			
+			var weatherAPI = "https://api.forecast.io/forecast/" + APIKEY + "/" + LATITUDE + "," + LONGITUDE;			
 
 			function displayWeather(data){
 			resultsContainer.innerHTML = "<h2>" + data.timezone + "</h2>";
