@@ -2,45 +2,44 @@
 <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script>
 	$(document).ready(function(){
+	// CREATE A CONTAINER DIV
 	var container = document.createElement("div");
 	container.id = "container";
-	container.style.marginLeft = "40px";
-	container.style.marginTop = "40px";
-	//container.style.marginRight = "0 auto";
 
+	// CREATE A BUTTON CALLED ARPOADOR
 	var arpoadorBtn = document.createElement("button");
 	arpoadorBtn.id = "arpoador";
 	var arpoadorText = document.createTextNode("ARPOADOR");
 	arpoadorBtn.appendChild(arpoadorText);
 	container.appendChild(arpoadorBtn);
 
+	// CREATE A DIV TO HOLD THE RESULTS FROM THE CALLBACK FUNCTION
 	var resultsContainer = document.createElement("div");
 	resultsContainer.id = "resultsContainer";
-	container.appendChild(resultsContainer);
+	
 
+	// WHEN A BUTTON IS CLICKED THE FOLLOWING FUNCTION HAPPENS
 		$("body").on('click', 'button', function(){
+			// FIRST, WE EMPTY THE RESULTS DIV
 			resultsContainer.innerHTML = " ";
-			var weatherResults = document.createElement("div");
-			weatherResults.id = $(this).text();
-			weatherResults.id += "weatherResults";
-			
+			// HERE IS THE DATA FOR THE getJSON METHOD	
 			var APIKEY = "a45bd61020ba2dacf470d8130e92240b";
 			var LATITUDE = "-22.988989";
 			var LONGITUDE = "-43.1937657";
-			var weatherAPI = "https://api.forecast.io/forecast/" + APIKEY + "/" + LATITUDE + "," + LONGITUDE + "";
-			
-			var weatherOptions;
-			
+
+			// THIS IS THE FORECAST.IO API URL
+			var weatherAPI = "https://api.forecast.io/forecast/" + APIKEY + "/" + LATITUDE + "," + LONGITUDE + "/callback=?";			
+
 			function displayWeather(data){
-			weatherResults.innerHTML = "<h2>" + data.timezone + "</h2>";
-			weatherResults.innerHTML += "<ul>";
-			weatherResults.innerHTML += "<li>" + data.currently.summary + "</l1>";
-			weatherResults.innerHTML += "</ul>";
+			resultsContainer.innerHTML = "<h2>" + data.timezone + "</h2>";
+			resultsContainer.innerHTML += "<ul>";
+			resultsContainer.innerHTML += "<li>" + data.currently.summary + "</l1>";
+			resultsContainer.innerHTML += "</ul>";
 			}	
 
-			$.getJSON(weatherAPI, weatherOptions, displayWeather);	
+			$.getJSON(weatherAPI, displayWeather);	
 			
-			resultsContainer.appendChild(weatherResults);
+		container.appendChild(resultsContainer);
 		});
 
 	
