@@ -1,0 +1,51 @@
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script>
+	$(document).ready(function(){
+	var container = document.createElement("div");
+	container.id = "container";
+	container.style.marginLeft = "40px";
+	container.style.marginTop = "40px";
+	//container.style.marginRight = "0 auto";
+
+	var arpoadorBtn = document.createElement("button");
+	arpoadorBtn.id = "arpoador";
+	var arpoadorText = document.createTextNode("ARPOADOR");
+	arpoadorBtn.appendChild(arpoadorText);
+	container.appendChild(arpoadorBtn);
+
+	var resultsContainer = document.createElement("div");
+	resultsContainer.id = "resultsContainer";
+	container.appendChild(resultsContainer);
+
+		$("body").on('click', 'button', function(){
+			resultsContainer.innerHTML = " ";
+			var weatherResults = document.createElement("div");
+			weatherResults.id = $(this).text();
+			weatherResults.id += "weatherResults";
+			
+			var APIKEY = "a45bd61020ba2dacf470d8130e92240b";
+			var LATITUDE = "-22.988989";
+			var LONGITUDE = "-43.1937657";
+			var weatherAPI = "https://api.forecast.io/forecast/" + APIKEY + "/" + LATITUDE + "," + LONGITUDE + "";
+			
+			var weatherOptions;
+			
+			function displayWeather(data){
+			weatherResults.innerHTML = "<h2>" + data.timezone + "</h2>";
+			weatherResults.innerHTML += "<ul>";
+			weatherResults.innerHTML += "<li>" + data.currently.summary + "</l1>";
+			weatherResults.innerHTML += "</ul>";
+			}	
+
+			$.getJSON(weatherAPI, weatherOptions, displayWeather);	
+			
+			resultsContainer.appendChild(weatherResults);
+		});
+
+	
+	document.body.appendChild(container);		
+	});
+
+</script>
+
